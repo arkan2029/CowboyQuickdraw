@@ -21,7 +21,7 @@ int main() {
     } else {
       std::cout << "You lose! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << std::endl;
     }
-    std::cout << "Press 'q' to quit or any other key to continue:" << std::endl;
+    std::cout << "Type 'q' and then enter to quit or any other key to continue:" << std::endl;
     char cont;
     std::cin >> cont;
     if (cont == 'q' || cont == 'Q') break;
