@@ -9,6 +9,11 @@ void buffer() {
 void countdown() {
     for (int i = 3; i > 0; --i) {
         std::this_thread::sleep_for(1s);
+        // no sleep after final count
+        if (i == 1) {
+            std::cout << i << std::endl;
+            break;
+        }
         std::cout << i << std::endl;
         std::this_thread::sleep_for(1s);
     }
