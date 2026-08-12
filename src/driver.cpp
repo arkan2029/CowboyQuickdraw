@@ -1,8 +1,15 @@
 #include "../includes/utils.hpp"
-#include "../includes/bst.hpp"
+
+#include <iostream>
+#include <chrono>
+#include <limits>
+#include <queue>
+#include <vector>
+#include <functional>
 
 int main() {
-  BST scorekeeper;
+  // MinHeap in memory to keep track of best time 
+  std::priority_queue<int, std::vector<int>, std::greater<int>> scorekeeper;
   while (true) {
     std::cout << "After the countdown from 3, when you see the cowboys on screen press SPACE as fast as you can." << std::endl;
     buffer();
@@ -14,7 +21,7 @@ int main() {
     auto len = end - start;
     auto timeInMs = std::chrono::duration_cast<std::chrono::milliseconds>(len);
     int time = timeInMs.count();  // Extract the integer milliseconds
-    scorekeeper.insert(time);
+    scorekeeper.push(time);
     int cpuTime = cpuMockTime();
     if (time < cpuTime) {
       std::cout << "You win! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << std::endl;
@@ -25,7 +32,8 @@ int main() {
     char cont;
     std::cin >> cont;
     if (cont == 'q' || cont == 'Q') break;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
-  std::cout << "Here was your best time: " << scorekeeper.findMin() << "ms" << std::endl;
+  std::cout << "Here was your best time: " << scorekeeper.top() << "ms" << std::endl;
   return 0;
 }

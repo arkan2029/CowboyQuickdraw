@@ -1,5 +1,10 @@
 #include "../includes/utils.hpp"
 
+#include <fstream>
+#include <thread>
+#include <random>
+#include <iostream>
+
 //3 sec pause in terminal to let user read initial instructions
 void buffer() {
     std::this_thread::sleep_for(3s);

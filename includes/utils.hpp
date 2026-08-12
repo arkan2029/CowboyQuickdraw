@@ -2,14 +2,10 @@
 #define UTILS_HPP
 
 
-#include <iostream>
-#include <fstream>
 #include <string>
-#include <thread>
-#include <chrono>
 #include <termios.h>
 #include <unistd.h>
-#include <random>
+#include <chrono>
 
 using namespace std::chrono_literals;
 
