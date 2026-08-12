@@ -9,9 +9,9 @@
 
 int main() {
   // MinHeap in memory to keep track of best time 
-  std::priority_queue<int, std::vector<int>, std::greater<int>> scorekeeper;
+  std::priority_queue<int, std::vector<int>, std::greater<int>> scorekeeper{};
   while (true) {
-    std::cout << "After the countdown from 3, when you see the cowboys on screen press SPACE as fast as you can." << std::endl;
+    std::cout << "After the countdown from 3, when you see the cowboys on screen press SPACE as fast as you can." << '\n';
     buffer();
     countdown();
     printCowboys("cowboy_duel.txt");
@@ -24,16 +24,16 @@ int main() {
     scorekeeper.push(time);
     int cpuTime = cpuMockTime();
     if (time < cpuTime) {
-      std::cout << "You win! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << std::endl;
+      std::cout << "You win! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << '\n';
     } else {
-      std::cout << "You lose! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << std::endl;
+      std::cout << "You lose! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << '\n';
     }
-    std::cout << "Type 'q' and then enter to quit or any other key to continue:" << std::endl;
+    std::cout << "Type 'q' and then enter to quit or any other key to continue:" << '\n';
     char cont;
     std::cin >> cont;
     if (cont == 'q' || cont == 'Q') break;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
-  std::cout << "Here was your best time: " << scorekeeper.top() << "ms" << std::endl;
+  std::cout << "Here was your best time: " << scorekeeper.top() << "ms" << '\n';
   return 0;
 }
