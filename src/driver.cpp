@@ -16,7 +16,6 @@ int main() {
   const auto sesh_id = startSession(db);
 
   while (true) {
-    //test
     std::cout << "After the countdown from 3, when you see the cowboys on screen press SPACE as fast as you can." << '\n';
     buffer();
     countdown();
