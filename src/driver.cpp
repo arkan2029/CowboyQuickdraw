@@ -41,6 +41,12 @@ int main() {
     if (cont == 'q' || cont == 'Q') break;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
-  std::cout << "Here was your best time: " << scorekeeper.top() << "ms" << '\n';
+  const auto best_score = lifetimeBestScore(db);
+  std::cout << "Here was your best time for this session: " << scorekeeper.top() << "ms" << '\n';
+  if (best_score) {
+    std::cout << "Your lifetime best time playing this match is: " << *best_score << '\n';
+  } else {
+    std::cout << "No scores present for you... go play!" << '\n';
+  }
   return 0;
 }

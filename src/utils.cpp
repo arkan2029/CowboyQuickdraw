@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <fstream>
 #include <stdexcept>
+#include <string>
 #include <thread>
 #include <random>
 #include <iostream>
@@ -135,4 +136,28 @@ void insertMatch(sqlite3* db, long long sessionId, int reactionTimeMs, const std
     if (rc != SQLITE_DONE) {
         throw std::runtime_error(std::string("Failed to insert match: ") + sqlite3_errmsg(db));
     }
+}
+
+std::optional<int> lifetimeBestScore(sqlite3* db) {
+    const char* sql = "SELECT MIN(reaction_time_ms) FROM matches;";
+    sqlite3_stmt* stmt = nullptr;
+
+    int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        throw std::runtime_error(std::string("Wasn't able to make lifetime query to .db: ") + sqlite3_errmsg(db));
+    }
+
+    rc = sqlite3_step(stmt);
+    if (rc != SQLITE_ROW) {
+        sqlite3_finalize(stmt);
+        throw std::runtime_error(std::string("Couldn't make lifetime best score query: ") + sqlite3_errmsg(db));
+    }
+
+    std::optional<int> best_score;
+    if (sqlite3_column_type(stmt, 0) != SQLITE_NULL) {
+        best_score = sqlite3_column_int(stmt, 0);
+    }
+
+    sqlite3_finalize(stmt);
+    return best_score;
 }

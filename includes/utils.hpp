@@ -9,6 +9,7 @@ extern "C" {
 #include <termios.h>
 #include <unistd.h>
 #include <chrono>
+#include <optional>
 
 using namespace std::chrono_literals;
 
@@ -20,6 +21,7 @@ int cpuMockTime();
 sqlite3* openDb();
 long long startSession(sqlite3* db);
 void insertMatch(sqlite3* db, long long sessionId, int reactionTimeMs, const std::string& result);
+std::optional<int> lifetimeBestScore(sqlite3* db);
 
 
 #endif // UTILS_HPP
