@@ -8,16 +8,21 @@
 #include <functional>
 
 int main() {
+  // create local .db file for all play history for user
+  sqlite3* db = openDb();
   // MinHeap in memory to keep track of best time 
   std::priority_queue<int, std::vector<int>, std::greater<int>> scorekeeper{};
+  // get unique session id of this run
+  const auto sesh_id = startSession(db);
+
   while (true) {
     std::cout << "After the countdown from 3, when you see the cowboys on screen press SPACE as fast as you can." << '\n';
     buffer();
     countdown();
     printCowboys("cowboy_duel.txt");
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::steady_clock::now();
     char input = getKeypress();
-    auto end = std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::steady_clock::now();
     auto len = end - start;
     auto timeInMs = std::chrono::duration_cast<std::chrono::milliseconds>(len);
     int time = timeInMs.count();  // Extract the integer milliseconds
@@ -25,8 +30,10 @@ int main() {
     int cpuTime = cpuMockTime();
     if (time < cpuTime) {
       std::cout << "You win! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << '\n';
+      insertMatch(db, sesh_id, time, "Win");
     } else {
       std::cout << "You lose! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << '\n';
+      insertMatch(db, sesh_id, time, "Lose");
     }
     std::cout << "Type 'q' and then enter to quit or any other key to continue:" << '\n';
     char cont;
