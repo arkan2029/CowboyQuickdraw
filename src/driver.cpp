@@ -4,6 +4,8 @@
 #include <chrono>
 #include <limits>
 #include <queue>
+#include <termios.h>
+#include <unistd.h>
 #include <vector>
 #include <functional>
 
@@ -20,6 +22,7 @@ int main() {
     buffer();
     countdown();
     printCowboys("cowboy_duel.txt");
+    tcflush(STDIN_FILENO, TCIFLUSH);  // discard any bytes queued in terminal buffer before getKeypress
     auto start = std::chrono::steady_clock::now();
     char input = getKeypress();
     auto end = std::chrono::steady_clock::now();
