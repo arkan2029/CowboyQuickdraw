@@ -12,7 +12,7 @@
 int main() {
   // create local .db file for all play history for user
   sqlite3* db = openDb();
-  // MinHeap in memory to keep track of best time 
+  // MinHeap in memory to keep track of times in a session  
   std::priority_queue<int, std::vector<int>, std::greater<int>> scorekeeper{};
   // get unique session id of this run
   const auto sesh_id = startSession(db);
@@ -38,7 +38,7 @@ int main() {
       std::cout << "You lose! Your time: " << time << "ms, NPC: " << cpuTime << "ms" << '\n';
       insertMatch(db, sesh_id, time, "Lose");
     }
-    std::cout << "Type 'q' and then enter to quit or any other key to continue:" << '\n';
+    std::cout << "Type 'q' and then enter to quit or any other key and enter to continue:" << '\n';
     char cont;
     std::cin >> cont;
     if (cont == 'q' || cont == 'Q') break;
