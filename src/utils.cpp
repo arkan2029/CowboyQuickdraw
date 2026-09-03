@@ -53,8 +53,8 @@ char getKeypress() {
 // random time generation to act as the npc for user, simulates avg human reaction time, adjusted slightly higher because keypress delay
 int cpuMockTime() {
     std::random_device rand;
-    std::mt19937 gen(rand());
-    std::uniform_int_distribution<int> dist(200, 500); // normal range = 150 - 400
+    static std::mt19937 gen(rand());
+    static std::uniform_int_distribution<int> dist(200, 500); // normal range = 150 - 400
     return dist(gen);
 }
 

@@ -24,7 +24,7 @@ int main() {
     printCowboys("cowboy_duel.txt");
     tcflush(STDIN_FILENO, TCIFLUSH);  // discard any bytes queued in terminal buffer before getKeypress
     auto start = std::chrono::steady_clock::now();
-    char input = getKeypress();
+    getKeypress();
     auto end = std::chrono::steady_clock::now();
     auto len = end - start;
     auto timeInMs = std::chrono::duration_cast<std::chrono::milliseconds>(len);
